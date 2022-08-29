@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <%- include('partials/head') %> 
+  </head>
+
+  <body>
+    <%- include('partials/nav') %>
+
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12 col-lg-12">
+          <div class="col-md-6 col-md-offset-3 col-lg-6 col-lg-offset-3">
+              <div class="panel panel-info">
+                <div class="panel-heading">
+                  <h4>Comments</h4>
+                </div>
+
+                <div class="panel-body">
+                  <ul class="list-group">
+                    <% comments.forEach(item => { %>
+                      <li class="list-group-item">
+                        <span><%= item.username %>:</span>
+                        <%- item.content %>
+                      </li>
+                    <% }) %>
+                  </ul>
+                  <form action="/api/comments/create" method="post">
+                    <div class="form-group">
+                      <input type="text" class="form-control" placeholder="comment" name="content">
+                    </div>
+                    <button type="submit" class="btn btn-default">Send</button>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+      </div>
+    </div>
+  </body>
+</html>

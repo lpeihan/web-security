@@ -1,0 +1,26 @@
+<nav class="navbar navbar-default">
+  <div class="container">
+    <div class="navbar-header">
+      <a class="navbar-brand" href="/">LOGO</a>
+    </div>
+
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav">
+        <li id="search"><a href="/search">Search</a></li>
+        <li id="comments"><a href="/comments">Comments</a></li>
+        <li id="transfer"><a href="/transfer">Transfer</a></li>
+      </ul>
+
+      <% if (user) { %>
+        <form class="navbar-form navbar-right" action="/api/users/logout">
+          <span style="margin-right: 10px;"> <%= user.username %></span>
+          <button class="btn btn-success">logout</button>
+        </form>
+      <% } else { %>
+        <form class="navbar-form navbar-right" action="/login">
+          <button class="btn btn-success">Login</button>
+        </form>
+      <% } %>
+    </div>
+  </div>
+</nav>

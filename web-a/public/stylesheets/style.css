@@ -1,0 +1,14 @@
+body {
+  font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
+}
+
+a {
+  color: #337ab7;
+}
+
+.list-group-item span {
+  color: #337ab7;
+  display: inline-block;
+  min-width: 40px;
+  font-weight: bold;
+}
