@@ -8,6 +8,8 @@ router.get('/', (req, res, next) => {
 });
 
 router.get('/search', (req, res, next) => {
+  res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com`);
+
   res.render('search', {
     word: req.query.word,
     pic: req.query.pic,

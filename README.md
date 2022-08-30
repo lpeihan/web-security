@@ -24,6 +24,13 @@ Alfred 2022/09/01
 
 ---
 
+## Scripting 能干嘛
+
+- 获取登录信息
+- 劫持前端逻辑
+- 发送请求
+- 偷取网站任意数据
+
 ## XSS 攻击分类
 
 - 反射型 - url 参数直接注入
@@ -39,6 +46,23 @@ Alfred 2022/09/01
 - HTML 属性
 - Javascript代码
 - 富文本
+
+---
+
+## XSS 攻击防御
+
+- 转义
+- CSP
+
+---
+
+## CSP
+
+Content Security Policy - 内容安全策略
+- child-src connect-src default-src
+- font-src frame-src img-src
+- mainfest-src media-src object-src
+- script-src style-src worker-src
 
 ---
 
@@ -70,3 +94,5 @@ Alfred 2022/09/01
 
 1. 禁止第三方网站带Cookie(same-site)
 2. 在前端页面加入验证信息
+3. token
+4. 验证referer
