@@ -10,6 +10,7 @@ router.get('/', (req, res, next) => {
 router.get('/search', (req, res, next) => {
   res.render('search', {
     word: req.query.word,
+    pic: req.query.pic,
   });
 });
 
