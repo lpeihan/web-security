@@ -45,6 +45,13 @@ router.get('/logout', (req, res, next) => {
 });
 
 router.post('/transfer', async (req, res, next) => {
+  if (!req.session.user) {
+    res.send({
+      code: CODE_ERROR,
+      message: 'no permission',
+    });
+    return;
+  }
   let {amount, payee} = req.body;
   amount = parseInt(amount);
   const user = await User.findById(req.session.user._id);
