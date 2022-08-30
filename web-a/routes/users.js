@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 const User = require('../models/user');
 const {CODE_SUCCESS, CODE_ERROR} = require('../utils/code');
+const Captcha = require('svg-captcha');
 
 router.post('/login', async (req, res, next) => {
   const {username, password} = req.body;
@@ -51,8 +52,16 @@ router.post('/transfer', async (req, res, next) => {
       message: 'no permission',
     });
     return;
-  }
-  let {amount, payee} = req.body;
+	}
+	let {amount, payee, captcha} = req.body;
+	
+	if (req.session.captcha && captcha !== req.session.captcha) {
+		res.send({
+      code: CODE_ERROR,
+      message: 'captcha incorrect',
+		});
+		return;
+	}
   amount = parseInt(amount);
   const user = await User.findById(req.session.user._id);
 
@@ -72,6 +81,16 @@ router.post('/transfer', async (req, res, next) => {
   await receiver.save();
 
   res.redirect('/transfer');
+});
+
+router.get('/captcha', (req, res, next) => {
+	const captcha = Captcha.create({
+		noise: 3
+	});
+
+	req.session.captcha = captcha.text;
+	res.type('svg');
+	res.send(captcha.data)
 });
 
 module.exports = router;

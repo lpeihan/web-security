@@ -21,7 +21,7 @@
                 </h5>
               </div>
               <div class="panel-body">
-                <form action="/api/users/transfer" method="post">
+                <form class="" action="/api/users/transfer" method="post">
                   <div class="form-group">
                     <label for="payee">Payee</label>
                     <input class="form-control" type="text" name="payee" />
@@ -31,6 +31,11 @@
                     <input class="form-control" type="text" name="amount" />
                   </div>
                   <div class="form-group">
+                    <label for="amount">Captcha</label>
+                    <input class="form-control" type="text" name="captcha" />
+                  </div>
+                  <div class="form-group">
+                    <img src="/api/users/captcha" id="captcha" />
                     <button class="btn btn-primary" type="submit">Transfer</button>
                   </div>
                 </form>
@@ -40,5 +45,11 @@
         </div>
       </div>
   </div>
+
+  <script>
+    document.getElementById('captcha').addEventListener('click', (e) => {
+      e.target.src = '/api/users/captcha?random=' + Math.random();
+    });
+  </script>
   </body>
   </html>
