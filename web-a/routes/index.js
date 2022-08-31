@@ -3,13 +3,17 @@ const router = express.Router();
 const Comment = require('../models/comment');
 const User = require('../models/user');
 const {getRandomString} = require('../utils');
+// const {xss} = require('../utils');
+// const xss = require('xss');
 
 router.get('/', (req, res, next) => {
+  console.log(req.headers.referer)
   res.render('index');
 });
 
 router.get('/search', (req, res, next) => {
-  res.setHeader('Content-Security-Policy', `default-src 'self'`);
+  // res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com; script-src 'unsafe-inline'`);
+  // console.log(xss("<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>"));
 
   res.render('search', {
     word: req.query.word,
