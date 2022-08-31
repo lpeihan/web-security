@@ -20,7 +20,7 @@ router.post('/login', async (req, res, next) => {
   } else {
     res.send({
       code: CODE_ERROR,
-      message: `We didn't find any matched account, please try again.`
+      message: `Username or passord is incorrect, please try again.`
     });
   }
 });
@@ -49,19 +49,28 @@ router.post('/transfer', async (req, res, next) => {
   if (!req.session.user) {
     res.send({
       code: CODE_ERROR,
-      message: 'no permission',
+      message: 'No permission',
     });
     return;
 	}
-	let {amount, payee, captcha} = req.body;
+	let {amount, payee, captcha, csrfToken} = req.body;
+
+  if (!csrfToken || req.cookies['csrfToken'] !== csrfToken) {
+    res.send({
+      code: CODE_ERROR,
+      message: 'Token incorrect',
+		});
+		return;
+  }
 	
 	if (req.session.captcha && captcha !== req.session.captcha) {
 		res.send({
       code: CODE_ERROR,
-      message: 'captcha incorrect',
+      message: 'Captcha incorrect',
 		});
 		return;
 	}
+
   amount = parseInt(amount);
   const user = await User.findById(req.session.user._id);
 

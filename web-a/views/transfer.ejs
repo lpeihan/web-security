@@ -22,6 +22,7 @@
               </div>
               <div class="panel-body">
                 <form class="" action="/api/users/transfer" method="post">
+                  <input type="hidden" name="csrfToken" value="<%= csrfToken %>" />
                   <div class="form-group">
                     <label for="payee">Payee</label>
                     <input class="form-control" type="text" name="payee" />

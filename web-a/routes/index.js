@@ -2,13 +2,14 @@ const express = require('express');
 const router = express.Router();
 const Comment = require('../models/comment');
 const User = require('../models/user');
+const {getRandomString} = require('../utils');
 
 router.get('/', (req, res, next) => {
   res.render('index');
 });
 
 router.get('/search', (req, res, next) => {
-  res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com`);
+  res.setHeader('Content-Security-Policy', `default-src 'self'`);
 
   res.render('search', {
     word: req.query.word,
@@ -33,7 +34,9 @@ router.get('/transfer', async (req, res, next) => {
   }
 
   const user = await User.findById(req.session.user._id);
-  res.render('transfer', {user});
+  const csrfToken = getRandomString();
+  res.cookie('csrfToken', csrfToken);
+  res.render('transfer', {user, csrfToken});
 });
 
 router.get('/login', (req, res, next) => {
