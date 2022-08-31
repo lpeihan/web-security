@@ -20,7 +20,7 @@ Alfred 2022/09/01
 
 - Cross Site Scripting
 - 跨站脚本攻击
-- 目标网站注入恶意脚本，获取敏感信息Cookie
+- 向目标网站注入恶意脚本，获取敏感信息Cookie
 
 ---
 
@@ -66,14 +66,13 @@ Content Security Policy - 内容安全策略
 
 - Cross Site Request Forgery
 - 跨站请求伪造
-- 在其他网站对目标网站发出一些请求，在用户不知情的情况下完成的
 
 ---
 
 ## CSRF攻击原理
 
 1. 登录受信任的网站A，并生成Cookie
-2. B网站页面向A网站发起请求(带A网站登录凭证)
+2. B网站页面向A网站发起请求(携带用户的cookie)
 ---
 ## CSRF的攻击特点
 

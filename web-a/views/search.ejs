@@ -20,12 +20,12 @@
       <p>Your search keyord is: <%- word %></p>
 
       <% if (pic) { %>
-        <img src="/images/<%- pic %>" width="200" />
+        <img src="/images/<%- pic %>" />
       <% } %>
     </div>
-  </body>
 
-  <script>
-    console.log("~~~~~~~`")
-  </script>
+    <script>
+      var from = "<%- from %>";
+    </script>
+  </body>
 </html>

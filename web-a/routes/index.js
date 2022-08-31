@@ -3,21 +3,21 @@ const router = express.Router();
 const Comment = require('../models/comment');
 const User = require('../models/user');
 const {getRandomString} = require('../utils');
-// const {xss} = require('../utils');
-// const xss = require('xss');
+const {filterXSS} = require('../utils');
+const xss = require('xss');
 
 router.get('/', (req, res, next) => {
-  console.log(req.headers.referer)
+  console.log(xss('<a href="#" onclick="alert(/xss/)" onerror="alert(1)">click me</a>'))
   res.render('index');
 });
 
 router.get('/search', (req, res, next) => {
-  // res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com; script-src 'unsafe-inline'`);
-  // console.log(xss("<p><a href='http://example.com/' onclick='stealCookies()'>Link</a></p>"));
+  res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com; script 'unsafe-inline'`);
 
   res.render('search', {
     word: req.query.word,
-    pic: req.query.pic,
+    pic: filterXSS(req.query.pic),
+    from: filterXSS(req.query.from)
   });
 });
 
@@ -40,7 +40,7 @@ router.get('/transfer', async (req, res, next) => {
   const user = await User.findById(req.session.user._id);
   const csrfToken = getRandomString();
   res.cookie('csrfToken', csrfToken);
-  res.render('transfer', {user, csrfToken});
+  res.render('transfer', {user, csrfToken, success: req.query.success});
 });
 
 router.get('/login', (req, res, next) => {

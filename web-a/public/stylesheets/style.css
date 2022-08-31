@@ -12,3 +12,7 @@ a {
   min-width: 40px;
   font-weight: bold;
 }
+
+img {
+  width: 200px;
+}
