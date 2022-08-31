@@ -55,29 +55,21 @@ router.post("/transfer", async (req, res, next) => {
   }
   let { amount, payee, captcha, csrfToken } = req.body;
 
-  if (!csrfToken || req.cookies['csrfToken'] !== csrfToken) {
-    res.send({
-      code: CODE_ERROR,
-      message: 'Token incorrect',
-  	});
-  	return;
-  }
+  // if (!csrfToken || req.cookies['csrfToken'] !== csrfToken) {
+  //   res.send({
+  //     code: CODE_ERROR,
+  //     message: 'Token incorrect',
+  // 	});
+  // 	return;
+  // }
 
-  if (!req.session.captcha || captcha !== req.session.captcha) {
-  	res.send({
-      code: CODE_ERROR,
-      message: 'Captcha incorrect',
-  	});
-  	return;
-  }
-
-  if (!req.headers.referer.includes("www.a.com")) {
-    res.send({
-      code: CODE_ERROR,
-      message: "Referer incorrect",
-    });
-    return;
-  }
+  // if (!req.session.captcha || captcha !== req.session.captcha) {
+  // 	res.send({
+  //     code: CODE_ERROR,
+  //     message: 'Captcha incorrect',
+  // 	});
+  // 	return;
+  // }
 
   amount = parseInt(amount);
   const user = await User.findById(req.session.user._id);

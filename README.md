@@ -20,7 +20,6 @@ Alfred 2022/09/01
 
 - Cross Site Scripting
 - 跨站脚本攻击
-- 向目标网站注入恶意脚本，获取敏感信息Cookie
 
 ---
 

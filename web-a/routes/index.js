@@ -2,22 +2,18 @@ const express = require('express');
 const router = express.Router();
 const Comment = require('../models/comment');
 const User = require('../models/user');
-const {getRandomString} = require('../utils');
-const {filterXSS} = require('../utils');
-const xss = require('xss');
 
 router.get('/', (req, res, next) => {
-  console.log(xss('<a href="#" onclick="alert(/xss/)" onerror="alert(1)">click me</a>'))
   res.render('index');
 });
 
 router.get('/search', (req, res, next) => {
-  res.setHeader('Content-Security-Policy', `default-src 'self' https://maxcdn.bootstrapcdn.com; script 'unsafe-inline'`);
+  // res.setHeader('Content-Security-Policy', `default-src 'self'`);
 
   res.render('search', {
     word: req.query.word,
-    pic: filterXSS(req.query.pic),
-    from: filterXSS(req.query.from)
+    pic: req.query.pic,
+    from: req.query.from,
   });
 });
 
@@ -38,9 +34,8 @@ router.get('/transfer', async (req, res, next) => {
   }
 
   const user = await User.findById(req.session.user._id);
-  const csrfToken = getRandomString();
-  res.cookie('csrfToken', csrfToken);
-  res.render('transfer', {user, csrfToken, success: req.query.success});
+
+  res.render('transfer', {user, success: req.query.success});
 });
 
 router.get('/login', (req, res, next) => {
